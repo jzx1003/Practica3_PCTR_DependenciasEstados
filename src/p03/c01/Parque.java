@@ -37,10 +37,10 @@ public class Parque implements IParque{
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Entrada");
 		
-		// TODO
+		checkInvariante();
 		
 		
-		// TODO
+		notifyAll();
 		
 	}
 	
@@ -62,10 +62,10 @@ public class Parque implements IParque{
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Salida");
 		
-		// TODO
+		checkInvariante();
 		
 		
-		// TODO
+		notifyAll();
 		
 	}
 	
@@ -101,7 +101,12 @@ public class Parque implements IParque{
 
 	protected void comprobarAntesDeEntrar(){	// TODO
 		if(contadorPersonasTotales > AFOROMAX) {
-			
+			try {
+				wait();
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		//
 		// TODO
@@ -110,7 +115,12 @@ public class Parque implements IParque{
 
 	protected void comprobarAntesDeSalir(){		// TODO
 		if(contadorPersonasTotales == AFOROMIN) {
-			
+			try {
+				wait();
+			}
+			catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		//
 		// TODO
