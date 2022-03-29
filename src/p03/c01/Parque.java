@@ -6,7 +6,8 @@ import java.util.Hashtable;
 public class Parque implements IParque{
 
 
-	// TODO 
+	private static final int AFOROMAX = 50;
+	private static final int AFOROMIN = 0;
 	private int contadorPersonasTotales;
 	private Hashtable<String, Integer> contadoresPersonasPuerta;
 	
@@ -26,7 +27,7 @@ public class Parque implements IParque{
 			contadoresPersonasPuerta.put(puerta, 0);
 		}
 		
-		// TODO
+		comprobarAntesDeEntrar();
 				
 		
 		// Aumentamos el contador total y el individual
@@ -43,9 +44,30 @@ public class Parque implements IParque{
 		
 	}
 	
-	// 
-	// TODO Método salirDelParque
-	//
+	@Override
+	public void salirDelParque(String puerta){		// TODO
+		
+		// Si no hay entradas por esa puerta, inicializamos
+		if (contadoresPersonasPuerta.get(puerta) == null){
+			contadoresPersonasPuerta.put(puerta, 0);
+		}
+		
+		comprobarAntesDeSalir();
+				
+		
+		// Disminuimos el contador total y el individual
+		contadorPersonasTotales--;		
+		contadoresPersonasPuerta.put(puerta, contadoresPersonasPuerta.get(puerta)-1);
+		
+		// Imprimimos el estado del parque
+		imprimirInfo(puerta, "Salida");
+		
+		// TODO
+		
+		
+		// TODO
+		
+	}
 	
 	
 	private void imprimirInfo (String puerta, String movimiento){
@@ -78,12 +100,18 @@ public class Parque implements IParque{
 	}
 
 	protected void comprobarAntesDeEntrar(){	// TODO
+		if(contadorPersonasTotales > AFOROMAX) {
+			
+		}
 		//
 		// TODO
 		//
 	}
 
 	protected void comprobarAntesDeSalir(){		// TODO
+		if(contadorPersonasTotales == AFOROMIN) {
+			
+		}
 		//
 		// TODO
 		//
