@@ -20,7 +20,7 @@ public class Parque implements IParque{
 
 
 	@Override
-	public void entrarAlParque(String puerta){		// TODO
+	public synchronized void entrarAlParque(String puerta){		// TODO
 		
 		// Si no hay entradas por esa puerta, inicializamos
 		if (contadoresPersonasPuerta.get(puerta) == null){
@@ -45,7 +45,7 @@ public class Parque implements IParque{
 	}
 	
 	@Override
-	public void salirDelParque(String puerta){		// TODO
+	public synchronized void salirDelParque(String puerta){		// TODO
 		
 		// Si no hay entradas por esa puerta, inicializamos
 		if (contadoresPersonasPuerta.get(puerta) == null){
@@ -93,11 +93,11 @@ public class Parque implements IParque{
 	protected void checkInvariante() {
 		assert sumarContadoresPuerta() == contadorPersonasTotales : "INV: La suma de contadores de las puertas debe ser igual al valor del contador del parte";
 		assert contadorPersonasTotales > AFOROMIN : "INV: No puede haber un número de personas negativo";
-		assert contadorPersonasTotales > AFOROMAX : "INV: No puede haber un número de personas mayor al aforo permitido";	
+		assert contadorPersonasTotales < AFOROMAX : "INV: No puede haber un número de personas mayor al aforo permitido";	
 	}
 
 	protected void comprobarAntesDeEntrar(){	// TODO
-		if(contadorPersonasTotales > AFOROMAX) {
+		while (contadorPersonasTotales > AFOROMAX) {
 			try {
 				wait();
 			}
@@ -111,7 +111,7 @@ public class Parque implements IParque{
 	}
 
 	protected void comprobarAntesDeSalir(){		// TODO
-		if(contadorPersonasTotales == AFOROMIN) {
+		while (contadorPersonasTotales == AFOROMIN) {
 			try {
 				wait();
 			}
