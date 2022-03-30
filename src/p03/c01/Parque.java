@@ -92,12 +92,12 @@ public class Parque implements IParque{
 	
 	protected void checkInvariante() {
 		assert sumarContadoresPuerta() == contadorPersonasTotales : "INV: La suma de contadores de las puertas debe ser igual al valor del contador del parte";
-		assert contadorPersonasTotales > AFOROMIN : "INV: No puede haber un número de personas negativo";
-		assert contadorPersonasTotales < AFOROMAX : "INV: No puede haber un número de personas mayor al aforo permitido";	
+		assert sumarContadoresPuerta() >= AFOROMIN : "INV: No puede haber un número de personas negativo";
+		assert sumarContadoresPuerta() <= AFOROMAX : "INV: No puede haber un número de personas mayor al aforo permitido";	
 	}
 
 	protected void comprobarAntesDeEntrar(){	// TODO
-		while (contadorPersonasTotales > AFOROMAX) {
+		while (contadorPersonasTotales >= AFOROMAX) {
 			try {
 				wait();
 			}
@@ -111,7 +111,7 @@ public class Parque implements IParque{
 	}
 
 	protected void comprobarAntesDeSalir(){		// TODO
-		while (contadorPersonasTotales == AFOROMIN) {
+		while (contadorPersonasTotales <= AFOROMIN) {
 			try {
 				wait();
 			}
